@@ -13,6 +13,12 @@ public class Main
 {
     public static void main(String[] args) 
     {
-        
+        //Test classe appuntamento
+        Appuntamento a=new Appuntamento("Federico", "Bonomi", "Aldo", "Baglio", 13, 7, 2021, 15, 30);
+        System.out.println(a.toString());
+        Appuntamento b=new Appuntamento("Chiara", "Bonomi", "Giovanni", "Storti", 28, 2, 2022, 14, 5);
+        System.out.println(b.toString());
+        Appuntamento c=new Appuntamento(a);
+        System.out.println(c.toString());
     }
 }
