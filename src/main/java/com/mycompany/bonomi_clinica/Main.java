@@ -7,7 +7,7 @@ package com.mycompany.bonomi_clinica;
 
 /**
  *
- * @author Federico
+ * @author Federico Bonomi
  */
 public class Main 
 {

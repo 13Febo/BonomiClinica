@@ -10,7 +10,7 @@ import java.io.*;
 
 /**
  *
- * @author Federico
+ * @author Federico Bonomi
  */
 public class TextFile 
 {

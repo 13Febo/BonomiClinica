@@ -5,6 +5,7 @@
  */
 package com.mycompany.bonomi_clinica;
 
+import java.io.Serializable;
 import java.time.*;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
  * una variabile che stabilisce se una visita è stata eseguita o no.
  * @author Federico Bonomi
  */
-public class Appuntamento 
+public class Appuntamento implements Serializable
 {
     private int codiceIdentificativo;
     private String nomePaziente;
@@ -27,16 +28,16 @@ public class Appuntamento
     private static int appuntamentiInseriti=0;
 
     /**
-     * permette di istanziare un oggetto di classe Appuntamento
-     * @param nomePaziente
-     * @param cognomePaziente
-     * @param nomeDottore
-     * @param cognomeDottore
-     * @param giorno
-     * @param mese
-     * @param anno
-     * @param ora
-     * @param minuti 
+     * Permette di istanziare un oggetto di classe Appuntamento
+     * @param nomePaziente la stringa contenente il nome che si vuole dare al paziente
+     * @param cognomePaziente la stringa contenente il cognome che si vuole dare al paziente
+     * @param nomeDottore la stringa contenente il nome che si vuole dare al dottore
+     * @param cognomeDottore la stringa contenente il cognome che si vuole dare al dottore
+     * @param giorno il giorno in cui si vuole prenotare la visita
+     * @param mese il mese in cui si vuole prenotare la visita
+     * @param anno l'anno in cui si vuole prenotare la visita
+     * @param ora l'ora a cui si vuole prenotare la visita
+     * @param minuti i in cui si vuole prenotare la visita
      */
     public Appuntamento(String nomePaziente, String cognomePaziente, String nomeDottore, String cognomeDottore, int giorno, int mese, int anno, int ora, int minuti)
     {
@@ -50,9 +51,9 @@ public class Appuntamento
     }
     
     /**
-     * permette di istanziare una copia indipendente di un oggetto
+     * Permette di istanziare una copia indipendente di un oggetto
      * di classe Appuntamento
-     * @param appuntamento
+     * @param appuntamento L'istanza della classe appuntamento che si vuole copiare
      */
     public Appuntamento(Appuntamento a)
     {
@@ -64,9 +65,21 @@ public class Appuntamento
         dataOra=a.dataOra.of(a.getAnno(),a.getMese(),a.getGiorno(),a.getOra(),a.getMinuti());
     }
     
+    /**
+     * Permette di Istanziare un aggetto della classe Appuntamento vuoto
+     */
+    public Appuntamento()
+    {
+        codiceIdentificativo=-1;
+        nomePaziente=null;
+        cognomePaziente=null;
+        nomeDottore=null;
+        cognomeDottore=null;
+        dataOra=null;
+    }
     
     /**
-     * restituisce il codice identificativo di un appuntamento
+     * Restituisce il codice identificativo di un appuntamento
      * @return codiceIdentificativo
      */
     public int getCodiceIdentificativo() 
@@ -75,7 +88,7 @@ public class Appuntamento
     }
 
     /**
-     * restituisce il nome del paziente
+     * Restituisce il nome del paziente
      * @return nomePaziente
      */
     public String getNomePaziente() 
@@ -93,7 +106,7 @@ public class Appuntamento
     }
 
     /**
-     * restituisce il nome del dottore
+     * Restituisce il nome del dottore
      * @return nomeDottore
      */
     public String getNomeDottore() 
@@ -102,7 +115,7 @@ public class Appuntamento
     }
 
     /**
-     * restituisce il cognome del dottore
+     * Restituisce il cognome del dottore
      * @return cognomeDottore
      */
     public String getCognomeDottore() 
@@ -111,7 +124,7 @@ public class Appuntamento
     }
 
     /**
-     * restituisce il giorno dell'appuntamento
+     * Restituisce il giorno dell'appuntamento
      * @return giorno
      */
     public int getGiorno() 
@@ -120,7 +133,7 @@ public class Appuntamento
     }
     
     /**
-     * restituisce il mese dell'appuntamento
+     * Restituisce il mese dell'appuntamento
      * @return mese
      */
     public int getMese() 
@@ -129,7 +142,7 @@ public class Appuntamento
     }
 
     /**
-     * restituisce il Anno dell'appuntamento
+     * Restituisce il Anno dell'appuntamento
      * @return anno
      */
     public int getAnno() 
@@ -138,7 +151,7 @@ public class Appuntamento
     }
     
     /**
-     * restituisce l'ora dell'appuntamento
+     * Restituisce l'ora dell'appuntamento
      * @return ora
      */
     public int getOra() 
@@ -147,7 +160,7 @@ public class Appuntamento
     }
     
     /**
-     * restituisce i minuti dell'appuntamento
+     * Restituisce i minuti dell'appuntamento
      * @return minuti
      */
     public int getMinuti() 
@@ -156,7 +169,7 @@ public class Appuntamento
     }
     
     /**
-     * restituisce se la visita è stata eseguita o no
+     * Restituisce se la visita è stata eseguita o no
      * @return true: visita eseguita<br>
      *         false: visita non ancora eseguita
      */
@@ -166,7 +179,7 @@ public class Appuntamento
     }
     
     /**
-     * restituisce quanti appuntamenti sono stati inseriti
+     * Restituisce quanti appuntamenti sono stati inseriti
      * @return appuntamentiInseriti
      */
     public static int getAppuntamentiInseriti()
@@ -175,7 +188,7 @@ public class Appuntamento
     }
 
     /**
-     * permette di inserire il nome del paziente
+     * Permette di inserire il nome del paziente
      * @param nomePaziente 
      */
     public void setNomePaziente(String nomePaziente) 
@@ -184,7 +197,7 @@ public class Appuntamento
     }
 
     /**
-     * permette di inserire il cognome del paziente
+     * Permette di inserire il cognome del paziente
      * @param cognomePaziente 
      */
     public void setCognomePaziente(String cognomePaziente) 
@@ -193,7 +206,7 @@ public class Appuntamento
     }
 
     /**
-     * permette di inserire il nome del dottore
+     * Permette di inserire il nome del dottore
      * @param nomeDottore 
      */
     public void setNomeDottore(String nomeDottore) 
@@ -202,7 +215,7 @@ public class Appuntamento
     }
 
     /**
-     * permette di inserire il cognome del dottore
+     * Permette di inserire il cognome del dottore
      * @param cognomeDottore 
      */
     public void setCognomeDottore(String cognomeDottore) 
@@ -211,7 +224,7 @@ public class Appuntamento
     }
 
     /**
-     * permette di inserire data e ora di una visita
+     * Permette di inserire data e ora di una visita
      * @param dataOra 
      */
     public void setDataOra(LocalDateTime dataOra) 
@@ -220,7 +233,7 @@ public class Appuntamento
     }
 
     /**
-     * traduce in una stringa un istanza della classe appuntamento
+     * Traduce in una stringa un istanza della classe appuntamento
      * @return una string con le informazione di un istanza della classe appuntamento
      */
     public String toString() 
