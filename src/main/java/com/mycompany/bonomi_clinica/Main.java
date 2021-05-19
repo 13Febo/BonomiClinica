@@ -6,6 +6,7 @@
 package com.mycompany.bonomi_clinica;
 
 import eccezioni.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -18,16 +19,35 @@ public class Main
     {
         String nomeFileTesto="agenda.txt";
         String nomeFileBinario="agenda.bin";
-        String[] vociMenu=new String[4];
+        String[] vociMenu=new String[9];
         int sceltaUtente=-1;
         Scanner tastiera=new Scanner(System.in);
         Clinica c1=new Clinica();
         Appuntamento appuntamento;
         
+        try
+        {
+            c1=c1.caricaAgenda(nomeFileBinario);
+            System.out.println("\nDati caricati correttamente\n\n");
+        }
+        catch(FileException e1)
+        {
+            System.out.println(e1.toString());
+        }
+        catch(IOException e2)
+        {
+            System.out.println("\nErrore nella lettura del file");
+        }
+        
         vociMenu[0]="Esci";
         vociMenu[1]="Aggiungi appuntamento";
-        vociMenu[2]="Visualizza visite non svolte in ordine cronologico";
-        vociMenu[3]="Visualizza visite non svolte in un detrminato giorno\n";
+        vociMenu[2]="Visualizza visite";
+        vociMenu[3]="Visualizza visite non svolte in ordine cronologico";
+        vociMenu[4]="Visualizza visite non svolte in un detrminato giorno";
+        vociMenu[5]="Esegui una visita";
+        vociMenu[6]="Cancella una visita";
+        vociMenu[7]="Salva gli appuntamenti in CSV";
+        vociMenu[8]="Salva i dati in file binarioa\n";
         Menu menu=new Menu(vociMenu);
         
         do
@@ -93,6 +113,16 @@ public class Main
                     }
                     case 2:
                     {
+                        System.out.println("\n");
+                        c1.visualizzaVisite();
+                        System.out.println("\n\nPremi un pulsante per continuare...");
+                        tastiera.nextLine();
+                        System.out.println("\n\n\n\n\n");
+                        break;
+                    }
+                    case 3:
+                    {
+                        System.out.println("\n");
                         try
                         {
                             c1.visulizzaAppuntamentiNonSvoltiCronologico();
@@ -107,7 +137,7 @@ public class Main
                         System.out.println("\n\n\n\n\n");
                         break;
                     }
-                    case 3:
+                    case 4:
                     {
                         int giorno,mese,anno;
                         System.out.println("Anno delle visite da visualizzare (non precedente al 2021) -->");
@@ -116,19 +146,87 @@ public class Main
                         mese=tastiera.nextInt();
                         System.out.println("Giorno delle visite da visualizzare -->");
                         giorno=tastiera.nextInt();
-                        System.out.println("\n\n");
+                        System.out.println("\n");
                         c1.visualizzaVisiteGiorno(giorno, mese, anno);
+                        System.out.println("\n\nPremi un pulsante per continuare...");
+                        tastiera.nextLine();
+                        System.out.println("\n\n\n\n\n");
+                        break;
+                    }
+                    case 5:
+                    {
+                        String nome,cognome;
+                        System.out.println("Nome Paziente che vuole eseguire la visita -->");
+                        nome=tastiera.nextLine();
+                        System.out.println("Cognome Paziente che vuole eseguire la visita -->");
+                        cognome=tastiera.nextLine();
+                        try
+                        {
+                            c1.eseguiVisita(nome, cognome);
+                        }
+                        catch(NessunAppuntamentoException e1)
+                        {
+                            System.out.println(e1.toString(nome, cognome));
+                        }
+                        
                         System.out.println("\n\nPremi un pulsante per continuare...");
                         tastiera.nextLine();
                         tastiera.nextLine();
                         System.out.println("\n\n\n\n\n");
+                        break;
+                    }
+                    case 6:
+                    {
+                        
+                        System.out.println("\n\nPremi un pulsante per continuare...");
+                        tastiera.nextLine();
+                        tastiera.nextLine();
+                        System.out.println("\n\n\n\n\n");
+                        break;
+                    }
+                    case 7:
+                    {
+                        try
+                        {
+                            c1.esportaLibriCSV(nomeFileTesto);
+                            System.out.println("Esportazione andata a buon fine");
+                        }
+                        catch(IOException e1)
+                        {
+                            System.out.println("Impossibile acedere al file");
+                        }
+                        catch (FileException e3) 
+                        {
+                            System.out.println(e3.toString());
+                        }
+                        System.out.println("\n\nPremi un pulsante per continuare...");
+                        tastiera.nextLine();
+                        System.out.println("\n\n\n\n\n");
+                        break;
+                    }
+                    case 8:
+                    {
+                        try
+                        {
+                            c1.salvaAgenda(nomeFileBinario);
+                            System.out.println("\nSalvataggio avvenuto con successo");
+                        }
+                        catch(IOException ex)
+                        {
+                            System.out.println("\nErrore nella scrittura del file");
+                        }
+                        
+                        System.out.println("\n\nPremi un pulsante per continuare...");
+                        tastiera.nextLine();
+                        System.out.println("\n\n\n\n\n");
+                        break;
                     }
                 }
             }
             catch(InputMismatchException | NumberFormatException e1)
             {
-                tastiera.nextLine();
                 System.out.println("Input non corretto");
+                tastiera.nextLine();
             } 
         }while(sceltaUtente!=0);
         

@@ -360,10 +360,21 @@ public class Appuntamento implements Serializable
          dataOra=dataOra.withMinute(minuti);
     }
     
+    /**
+     * Permette di inserire un ID ad un'istanza che originalmente era vuota
+     */
     public void setIDVisita()
     {
         appuntamentiInseriti++;
         codiceIdentificativo=appuntamentiInseriti;
+    }
+    
+    /**
+     * Simula l'esecuzione di una visita portando l'indicatore su true
+     */
+    public void esegui()
+    {
+        eseguita=true;
     }
 
     /**

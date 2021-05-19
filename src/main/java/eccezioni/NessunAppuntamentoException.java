@@ -13,6 +13,11 @@ public class NessunAppuntamentoException extends Exception
 {
     public String toString()
     {
-        return "Nessun Appuntamento inserito";
+        return "Nessun Appuntamento insserito";
+    }
+    
+    public String toString(String nome, String cognome)
+    {
+        return "Nessuna visita a nome: "+nome+" "+cognome;
     }
 }
