@@ -75,61 +75,75 @@ public class Clinica implements Serializable
     }
     
     /**
-     * Permette di istanziare un nuovo oggetto di Classe appuntamento nell'array agenda
-     * @param nomePaziente è il nome che avrà il paziente
-     * @param cognomePaziente è il cognome che avrà il paziente
-     * @param nomeDottore è il nome che avrà il dottore
-     * @param cognomeDottore è il cognome che avrà il dottore
-     * @param giorno il giorno in cui si vuole prenotare la visita
-     * @param mese il mese in cui si vuole prenotare la visita
-     * @param anno l'anno in cui si vuole prenotare la visita
-     * @param ora l'ora a cui si vuole prenotare la visita
-     * @param minuti i in cui si vuole prenotare la visita
-     * @throws DataException viene lanciato quando la data inserita non esiste
-     * @throws OraException viene lanciato quando l'orario inserito non esiste
-     * @throws ClinicaChiusaException viene lanciato quando nell'orario inserito la clinica è chiusa
-     * @throws MassimoAppuntamentiException viene lanciato quando si è raggiunto il massimo di appuntamenti possibili da inserire
+     * Permette di aggiungere un appuntamento
+     * @param a l'appuntamento da inserie
+     * @throws MassimoAppuntamentiException viene lanciato nel caso si siano raggiunti il massimo di appuntamenti
      */
-    public void aggiungiAppuntamento(String nomePaziente, String cognomePaziente, String nomeDottore, String cognomeDottore, int giorno, int mese, int anno, int ora, int minuti) throws DataException, OraException, ClinicaChiusaException, MassimoAppuntamentiException
+    public void aggiungiAppuntamento(Appuntamento a) throws MassimoAppuntamentiException
     {
-        int bisestile=anno%4;
-        if(mese==2)
-        {
-            if(bisestile==0 && (giorno<1 || giorno>29))
-                throw new DataException(giorno, mese, anno);
-            else if(bisestile!=0 && (giorno<1 || giorno>28))
-                throw new DataException(giorno, mese, anno);
-        }
-        else if(mese==4 || mese==6 || mese==9 || mese==11)
-        {
-            if(giorno<1 || giorno>30)
-                throw new DataException(giorno, mese, anno);
-        }
-        else if(mese<1 || mese>12)
-            throw new DataException(giorno, mese, anno);
-        else
-            if(giorno<1 || giorno>31)
-                throw new DataException(giorno, mese, anno);
-        
-        if(minuti<0 || minuti>60)
-            throw new OraException(ora, minuti);
-        else if(ora<0 || ora>23)
-            throw new OraException(ora, minuti);
-        
-        if(ora<8 || ora>20)
-            throw new ClinicaChiusaException(ora, minuti);
-        else if((ora==8 || ora==20) && minuti<30)
-            throw new ClinicaChiusaException(ora, minuti);
-        
         if(getNumeroVisiteInserite()<getN_MAX_APPUNTAMENTI())
         {
-            agenda[getNumeroVisiteInserite()]=new Appuntamento(nomePaziente, cognomePaziente, nomeDottore, cognomeDottore, giorno, mese, anno, ora, minuti);
+            agenda[getNumeroVisiteInserite()]=new Appuntamento(a);
             numeroVisiteInserite++;
         }
         else
             throw new MassimoAppuntamentiException();
-            
     }
     
+    /**
+     * Questo metodo mostra a schermo le visite non ancora svolte in ordine cronologico
+     * @throws NessunAppuntamentoException 
+     */
+    public void visulizzaAppuntamentiNonSvoltiCronologico() throws NessunAppuntamentoException
+    {
+        if(numeroVisiteInserite==0)
+            throw new NessunAppuntamentoException();
+        
+        Appuntamento[] ordinato=new Appuntamento[agenda.length];
+        int o=0;
+        
+        for(int i=0;i<numeroVisiteInserite;i++)
+        {
+            if(agenda[i].isEseguita()==false)
+            {
+                ordinato[o]=agenda[i];
+                o++;
+            }
+        }
+        
+        ordinato=Ordinatore.selectionSortCronologico(ordinato);
+        
+        for(int i=0;i<agenda.length;i++)
+        {
+            try
+            {
+                System.out.println(ordinato[i].toString());
+            }
+            catch(NullPointerException e)
+            {
+                
+            }
+        }
+    }
     
+    /**
+     * Mostra a schermo le visite da eseguire in un determinato giorno
+     * @param giorno giorno nel quale vuoi visulizzare le visite
+     * @param mese mese nel quale vuoi visulizzare le visite
+     * @param anno anno nel quale vuoi visulizzare le visite
+     */
+    public void visualizzaVisiteGiorno(int giorno, int mese, int anno)
+    {
+        int o=0;
+        for(int i=0;i<getN_MAX_APPUNTAMENTI();i++)
+        {
+            if(agenda[i].getAnno()==anno && agenda[i].getMese()==mese && agenda[i].getGiorno()==giorno && agenda[i].isEseguita()==false)
+            {
+                System.out.println(agenda[i].toString());
+                o++;
+            }
+        }
+        if(o==0)
+            System.out.println("\nNessuna visita presente per questo giorno");
+    }
 }

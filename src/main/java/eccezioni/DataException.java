@@ -39,7 +39,7 @@ public class DataException extends Exception
     
     public String toString() 
     {
-        return "La data "+getGiorno()+"/"+getMese()+"/"+getAnno()+" non esiste";
+        return "La data "+getGiorno()+"/"+getMese()+"/"+getAnno()+" non è valida";
     }
     
     
