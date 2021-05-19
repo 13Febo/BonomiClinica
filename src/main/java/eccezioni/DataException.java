@@ -7,9 +7,9 @@ package eccezioni;
 
 /**
  *
- * @author Federico
+ * @author Federico Bonomi
  */
-public class DataException 
+public class DataException extends Exception
 {
     private int giorno;
     private int mese;
@@ -39,7 +39,7 @@ public class DataException
     
     public String toString() 
     {
-        return "La data"+getGiorno()+"/"+getMese()+"/"+getAnno()+" non è valida";
+        return "La data "+getGiorno()+"/"+getMese()+"/"+getAnno()+" non esiste";
     }
     
     

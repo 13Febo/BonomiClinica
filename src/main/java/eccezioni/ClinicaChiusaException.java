@@ -1,0 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package eccezioni;
+
+/**
+ *
+ * @author Federico Bonomi
+ */
+public class ClinicaChiusaException extends Exception
+{
+    private int ora;
+    private int minuti;
+    
+    public ClinicaChiusaException(int ora, int minuti)
+    {
+        this.ora=ora;
+        this.minuti=minuti;
+    }
+
+    public int getOra() 
+    {
+        return ora;
+    }
+
+    public int getMinuti() 
+    {
+        return minuti;
+    }
+    
+    public String toString() 
+    {
+        return "All' orario "+getOra()+":"+getMinuti()+" la clinica è chiusa\nLa clinica è aperta delle 8:30 alle 20:30";
+    }
+}
