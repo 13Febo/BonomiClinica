@@ -101,8 +101,10 @@ public class Clinica implements Serializable
     /**
      * Visualizza tutte le visite a schermo sia svolte che non svolte
      */
-    public void visualizzaVisite()
+    public void visualizzaVisite() throws NessunAppuntamentoException
     {
+        if(numeroVisiteInserite==0)
+            throw new NessunAppuntamentoException();
         for(int i=0;i<numeroVisiteInserite;i++)
         {
             System.out.println(agenda[i].toString());
@@ -189,7 +191,7 @@ public class Clinica implements Serializable
         if(o==0)
             throw new NessunAppuntamentoException();
         
-        int[] array=new int[o];
+        int[] array=new int[o+1];
         o=0;
         
         for (int i=0;i<numeroVisiteInserite;i++)
@@ -205,6 +207,7 @@ public class Clinica implements Serializable
         
         do 
         {
+            System.out.println("\n");
             for (int i=0;i<numeroVisiteInserite;i++)
             {
                 for(int j=0;j<numeroVisiteInserite;j++)
@@ -234,6 +237,13 @@ public class Clinica implements Serializable
                 if(identificativo==array[i])
                     corretto=true;
             }
+            
+            if(corretto==false)
+            {
+                System.out.println("\nErrore, identificativo non valido: riprova...");
+                tastiera.nextLine();
+                tastiera.nextLine();
+            }
         }while(corretto==false);
         
         for (int i=0;i<numeroVisiteInserite;i++)
@@ -247,6 +257,103 @@ public class Clinica implements Serializable
                 tastiera.nextLine();
             }
         }
+    }
+    
+    /**
+     * Permette di eliminare una visita prenotata e non ancora eseguita
+     * @param nome il nome del paziente che vuole eliminare la visita
+     * @param cognome il cognome del paziente che vuole eliminare la visita
+     * @throws NessunAppuntamentoException viene lanciato nel caso non ci siano pazienti con questo nome
+     */
+    public void eliminaPrenotazione(String nome, String cognome) throws NessunAppuntamentoException
+    {
+        int o=0;
+        int identificativo=-1;
+        boolean corretto=false;
+        Scanner tastiera=new Scanner(System.in);
+        
+        for (int i=0;i<numeroVisiteInserite;i++)
+        {
+            if(agenda[i].getNomePaziente().compareToIgnoreCase(nome)==0 && agenda[i].getCognomePaziente().compareToIgnoreCase(cognome)==0 && agenda[i].isEseguita()==false)
+                o++;
+        }
+        
+        if(o==0)
+            throw new NessunAppuntamentoException();
+        
+        int[] array=new int[o+1];
+        o=0;
+        
+        for (int i=0;i<numeroVisiteInserite;i++)
+        {
+            if(agenda[i].getNomePaziente().compareToIgnoreCase(nome)==0 && agenda[i].getCognomePaziente().compareToIgnoreCase(cognome)==0 && agenda[i].isEseguita()==false)
+            {
+                array[o]=agenda[i].getCodiceIdentificativo();
+                o++;
+            }
+        }
+        
+            
+        
+        do 
+        {
+            System.out.println("\n");
+            for (int i=0;i<array.length;i++)
+            {
+                for(int j=0;j<numeroVisiteInserite;j++)
+                {
+                    if(agenda[j].getCodiceIdentificativo()==array[i])
+                    {
+                        System.out.println(agenda[j].toString());
+                    }
+                }
+            }
+            
+            System.out.println("\nInserisci il numero della visita che vuoi eseguire --> ");
+            try
+            {
+                identificativo=tastiera.nextInt();
+            }
+            catch(InputMismatchException | NumberFormatException e1)
+            {
+                System.out.println("Input non corretto...\nReinserisci:");
+                tastiera.nextLine();
+                tastiera.nextLine();
+                continue;
+            }
+            
+            for(int i=0;i<array.length;i++)
+            {
+                if(identificativo==array[i])
+                    corretto=true;
+            }
+            
+            if(corretto==false)
+            {
+                System.out.println("\nErrore, identificativo non valido: riprova...");
+                tastiera.nextLine();
+                tastiera.nextLine();
+            }
+        }while(corretto==false);
+        
+        int j=-1;
+        
+        for (int i=0;i<numeroVisiteInserite;i++)
+        {
+            if(agenda[i].getCodiceIdentificativo()==identificativo)
+            {
+                j=i;
+            }
+        }
+        
+        for(int i=j;j<numeroVisiteInserite;i++)
+        {
+            agenda[i]=new Appuntamento(agenda[i+1]);
+            if(agenda[i].getCodiceIdentificativo()==-1)
+                break;
+        }
+        
+        numeroVisiteInserite--;
     }
     
     /**
@@ -305,6 +412,16 @@ public class Clinica implements Serializable
         {
             reader.close();
             throw new FileException("Errore di lettura");
+        }
+        
+        
+        for(int i=0;i<c.getN_MAX_APPUNTAMENTI();i++)
+        {
+            if(c.agenda[i].getCodiceIdentificativo()==-1)
+            {
+                Appuntamento.setProssimoId(c.agenda[i-1].getCodiceIdentificativo());
+                break;
+            }
         }
         
         return c;

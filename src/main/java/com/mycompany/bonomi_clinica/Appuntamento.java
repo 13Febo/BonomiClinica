@@ -370,6 +370,15 @@ public class Appuntamento implements Serializable
     }
     
     /**
+     * Quando vengono caricati i dati da un file con questo metodo puoi settare il numero di quello che sarà il prossimo ID
+     * @param ID il prossimo ID
+     */
+    public static void setProssimoId(int ID)
+    {
+        appuntamentiInseriti=ID;
+    }
+    
+    /**
      * Simula l'esecuzione di una visita portando l'indicatore su true
      */
     public void esegui()

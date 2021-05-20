@@ -114,7 +114,15 @@ public class Main
                     case 2:
                     {
                         System.out.println("\n");
-                        c1.visualizzaVisite();
+                        try
+                        {
+                            c1.visualizzaVisite();
+                        }
+                        catch(NessunAppuntamentoException e1)
+                        {
+                            System.out.println(e1.toString());
+                        }
+                        
                         System.out.println("\n\nPremi un pulsante per continuare...");
                         tastiera.nextLine();
                         System.out.println("\n\n\n\n\n");
@@ -150,6 +158,7 @@ public class Main
                         c1.visualizzaVisiteGiorno(giorno, mese, anno);
                         System.out.println("\n\nPremi un pulsante per continuare...");
                         tastiera.nextLine();
+                        tastiera.nextLine();
                         System.out.println("\n\n\n\n\n");
                         break;
                     }
@@ -171,15 +180,28 @@ public class Main
                         
                         System.out.println("\n\nPremi un pulsante per continuare...");
                         tastiera.nextLine();
-                        tastiera.nextLine();
                         System.out.println("\n\n\n\n\n");
                         break;
                     }
                     case 6:
                     {
+                        String nome,cognome;
+                        System.out.println("Nome Paziente che vuole eliminare la visita -->");
+                        nome=tastiera.nextLine();
+                        System.out.println("Cognome Paziente che vuole eliminare una visita -->");
+                        cognome=tastiera.nextLine();
+                        
+                        try
+                        {
+                            c1.eliminaPrenotazione(nome, cognome);
+                            System.out.println("Eliminazione avvenuta con successo");
+                        }
+                        catch(NessunAppuntamentoException e1)
+                        {
+                            System.out.println(e1.toString(nome, cognome));
+                        }
                         
                         System.out.println("\n\nPremi un pulsante per continuare...");
-                        tastiera.nextLine();
                         tastiera.nextLine();
                         System.out.println("\n\n\n\n\n");
                         break;
