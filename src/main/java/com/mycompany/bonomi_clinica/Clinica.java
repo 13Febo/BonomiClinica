@@ -31,7 +31,7 @@ public class Clinica implements Serializable
 {
     private int numeroVisiteInserite=0;
     private Appuntamento[] agenda;
-    private final static int N_MAX_APPUNTAMENTI=100;
+    private final int N_MAX_APPUNTAMENTI=100;
 
     /**
      * Permette l'istanza di un oggetto di classe Clinica
@@ -59,27 +59,9 @@ public class Clinica implements Serializable
      * Ritorna il numero massimo di visite che possono essere inserite
      * @return 
      */
-    public static int getN_MAX_APPUNTAMENTI() 
+    public int getN_MAX_APPUNTAMENTI() 
     {
         return N_MAX_APPUNTAMENTI;
-    }
-    
-    /**
-     * Ritorna una ppuntamento con un determinato identificativo
-     * @param identificativo l'identificativo che ha l'appuntamento che si cerca
-     * @return 
-     */
-    public Appuntamento getAppuntamento(int identificativo)
-    {
-        for(int i=0;i<getNumeroVisiteInserite();i++)
-        {
-            if(agenda[i].getCodiceIdentificativo()==identificativo)
-            {
-                return agenda[i];
-            }
-        }
-        
-        return null;
     }
     
     /**

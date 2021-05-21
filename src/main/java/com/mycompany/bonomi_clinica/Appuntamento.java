@@ -371,11 +371,11 @@ public class Appuntamento implements Serializable
     
     /**
      * Quando vengono caricati i dati da un file con questo metodo puoi settare il numero di quello che sarà il prossimo ID
-     * @param ID il prossimo ID
+     * @param codiceIdentificativo il prossimo ID
      */
-    public static void setProssimoId(int ID)
+    public static void setProssimoId(int codiceIdentificativo)
     {
-        appuntamentiInseriti=ID;
+        appuntamentiInseriti=codiceIdentificativo;
     }
     
     /**
