@@ -6,7 +6,7 @@
 package com.mycompany.bonomi_clinica;
 
 import eccezioni.*;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -248,6 +248,7 @@ public class Main
             catch(InputMismatchException | NumberFormatException e1)
             {
                 System.out.println("Input non corretto");
+                tastiera.nextLine();
                 tastiera.nextLine();
             } 
         }while(sceltaUtente!=0);

@@ -1,5 +1,6 @@
-1;Federico;Bonomi;Aldo;Baglio;11;5;2022;13;45;false;
-2;Angelo;Guerini;Giacomo;Poretti;24;9;2021;12;45;false;
-4;Angelo;Guerini;Salvatore;Cinquegrana;30;6;2021;8;45;false;
-5;Federico;Bonomi;Stefano;Lepri;16;8;2025;16;30;false;
-6;Pietro;Labozzetta;Gian Marco;Laini;13;6;2021;18;30;false;
+1;Federico;Bonomi;aldo;Baglio;18;2;2022;12;30;false;
+2;Giovanni;Leveghi;Leonardo;Bru;11;1;2021;12;0;true;
+3;Filippo;Molinari;Nicholas;Gregori;31;3;2022;15;45;false;
+4;Marta;Manella;Danilo;Giobini;3;4;2021;9;30;false;
+5;Alessio;Bianchi;Aldo;baglio;28;1;2021;16;35;false;
+6;Alessio;Bianchi;Nicholas;Gregori;14;6;2021;12;30;false;

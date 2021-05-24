@@ -6,16 +6,10 @@
 package com.mycompany.bonomi_clinica;
 
 import eccezioni.*;
-import file.TextFile;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import file.*;
+import java.io.*;
 import java.time.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Questa classe simula un agenda di una clinica.
@@ -189,8 +183,8 @@ public class Clinica implements Serializable
         
         do 
         {
-            System.out.println("\n");
-            for (int i=0;i<numeroVisiteInserite;i++)
+           System.out.println("\n");
+            for (int i=0;i<array.length;i++)
             {
                 for(int j=0;j<numeroVisiteInserite;j++)
                 {

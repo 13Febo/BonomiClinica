@@ -5,12 +5,10 @@
  */
 package com.mycompany.bonomi_clinica;
 
-import eccezioni.ClinicaChiusaException;
-import eccezioni.DataException;
-import eccezioni.OraException;
-import java.io.Serializable;
+import eccezioni.*;
+import java.io.*;
 import java.time.*;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * La classe appuntamento rappresenta un appuntamento di uno studio medico.
